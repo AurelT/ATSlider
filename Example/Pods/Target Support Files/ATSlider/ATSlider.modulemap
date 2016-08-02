@@ -1,0 +1,6 @@
+framework module ATSlider {
+  umbrella header "ATSlider-umbrella.h"
+
+  export *
+  module * { export * }
+}

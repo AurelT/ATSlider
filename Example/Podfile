@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ATSlider_Example' do
+  pod 'ATSlider', :path => '../'
+
+  target 'ATSlider_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

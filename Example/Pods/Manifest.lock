@@ -1,0 +1,16 @@
+PODS:
+  - ATSlider (0.1.0)
+
+DEPENDENCIES:
+  - ATSlider (from `../`)
+
+EXTERNAL SOURCES:
+  ATSlider:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ATSlider: ad4e30026a039f6a5869fe3e7022e7fb0b2f21fd
+
+PODFILE CHECKSUM: 0aa8e438678b7e7436f088bda37bccf94b1e5f07
+
+COCOAPODS: 1.0.1

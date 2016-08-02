@@ -1,0 +1,22 @@
+{
+  "name": "ATSlider",
+  "version": "0.1.0",
+  "summary": "A short description of ATSlider.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/ATSlider",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Aurel Tyson": "aurel.tis@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/ATSlider.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "ATSlider/Classes/**/*"
+}
