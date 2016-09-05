@@ -59,18 +59,18 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
-    @IBAction func actionSwitch(sender: UISwitch) {
+    @IBAction func actionSwitch(_ sender: UISwitch) {
         
         if sender == self.switchShowMinMax {
             
-            self.mainSlider.showMinMax = sender.on
+            self.mainSlider.showMinMax = sender.isOn
             
         }
         self.mainSlider.setNeedsLayout()
         
     }
     
-    @IBAction func actionSlider(sender: UISlider) {
+    @IBAction func actionSlider(_ sender: UISlider) {
         
         if sender == self.sliderCursorSize {
             

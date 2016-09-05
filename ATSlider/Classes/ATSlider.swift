@@ -8,56 +8,56 @@
 
 import UIKit
 
-@IBDesignable public class ATSlider: UIControl {
+@IBDesignable open class ATSlider: UIControl {
     
     // MARK: - Privates variables
     
-    private var backgroundView: UIView!
-    private var sliderView: UIView!
-    private var sliderBackgroundView: UIView!
-    private var cursorView: UIView!
+    fileprivate var backgroundView: UIView!
+    fileprivate var sliderView: UIView!
+    fileprivate var sliderBackgroundView: UIView!
+    fileprivate var cursorView: UIView!
     
-    private var currentPosLabel: UILabel!
-    private var maxLabel: UILabel!
-    private var minLabel: UILabel!
+    fileprivate var currentPosLabel: UILabel!
+    fileprivate var maxLabel: UILabel!
+    fileprivate var minLabel: UILabel!
     
-    private var isFloatingPoint: Bool {
-        get { return step % 1 != 0 ? true : false }
+    fileprivate var isFloatingPoint: Bool {
+        get { return step.truncatingRemainder(dividingBy: 1) != 0 ? true : false }
     }
     
     // MARK: - Publics variables
     
-    public var getTextForValueAtIndexAction: ((index: Int) -> String)?
-    public var textAlignement: NSTextAlignment = .Center
+    open var getTextForValueAtIndexAction: ((_ index: Int) -> String)?
+    open var textAlignement: NSTextAlignment = .center
     
     // MARK: - Inspectables variables
     
     // Global
-    @IBInspectable public var textColor: UIColor = UIColor.grayColor()
-    @IBInspectable public var mainBackgroundColor: UIColor = UIColor.clearColor()
-    @IBInspectable public var sliderOffset: CGFloat = 0
+    @IBInspectable open var textColor: UIColor = UIColor.gray
+    @IBInspectable open var mainBackgroundColor: UIColor = UIColor.clear
+    @IBInspectable open var sliderOffset: CGFloat = 0
     
     // Cursor
-    @IBInspectable public var cursorSize: CGFloat = 20
-    @IBInspectable public var cursorColor: UIColor = UIColor.grayColor()
+    @IBInspectable open var cursorSize: CGFloat = 20
+    @IBInspectable open var cursorColor: UIColor = UIColor.gray
     
     // Slider
-    @IBInspectable public var sliderColor: UIColor = UIColor.blueColor()
-    @IBInspectable public var sliderWidth: CGFloat = 1
+    @IBInspectable open var sliderColor: UIColor = UIColor.blue
+    @IBInspectable open var sliderWidth: CGFloat = 1
     
     // Min / max
-    @IBInspectable public var numberOfValues: Int = 50
-    @IBInspectable public var showMinMax: Bool = false {
+    @IBInspectable open var numberOfValues: Int = 50
+    @IBInspectable open var showMinMax: Bool = false {
         didSet {
-            self.minLabel.hidden = !self.showMinMax
-            self.maxLabel.hidden = !self.showMinMax
+            self.minLabel.isHidden = !self.showMinMax
+            self.maxLabel.isHidden = !self.showMinMax
         }
     }
-    @IBInspectable public var step: Double = 1
-    @IBInspectable var sliderUnselectedColor: UIColor = UIColor.lightGrayColor()
+    @IBInspectable open var step: Double = 1
+    @IBInspectable var sliderUnselectedColor: UIColor = UIColor.lightGray
     
     // Pin
-    @IBInspectable public var pinBackgroundColor: UIColor = UIColor.redColor()
+    @IBInspectable open var pinBackgroundColor: UIColor = UIColor.red
     
     /**
      the position of the handle. The handle moves animated when setting the variable
@@ -90,11 +90,11 @@ import UIKit
     var disabled:Bool = false {
         didSet {
             self.sliderBackgroundView.alpha = self.disabled ? 0.4 : 1.0
-            self.userInteractionEnabled = !self.disabled
+            self.isUserInteractionEnabled = !self.disabled
         }
     }
     
-    private var steps: Int {
+    fileprivate var steps: Int {
         get {
             if self.step == 0 {
                 
@@ -109,19 +109,19 @@ import UIKit
         }
     }
     
-    private var maxPosition:Double {
+    fileprivate var maxPosition:Double {
         get {
             return 0
         }
     }
     
-    private var minPosition:Double {
+    fileprivate var minPosition:Double {
         get {
             return Double(sliderView.frame.height)
         }
     }
     
-    private var stepheight:Double {
+    fileprivate var stepheight:Double {
         get {
             return (self.minPosition - self.maxPosition) / Double(self.steps - 1)
         }
@@ -147,22 +147,22 @@ import UIKit
     
     // MARK: - Configuration
     
-    private func setup() {
+    fileprivate func setup() {
         
         self.backgroundView = UIView()
-        self.backgroundView.userInteractionEnabled = false
+        self.backgroundView.isUserInteractionEnabled = false
         self.addSubview(self.backgroundView)
         
         self.sliderBackgroundView = UIView()
-        self.sliderBackgroundView.userInteractionEnabled = false
+        self.sliderBackgroundView.isUserInteractionEnabled = false
         self.backgroundView.addSubview(self.sliderBackgroundView)
         
         self.sliderView = UIView()
-        self.sliderView.userInteractionEnabled = false
+        self.sliderView.isUserInteractionEnabled = false
         self.sliderBackgroundView.addSubview(self.sliderView)
         
         self.cursorView = UIView()
-        self.cursorView.userInteractionEnabled = false
+        self.cursorView.isUserInteractionEnabled = false
         self.cursorView.clipsToBounds = true
         self.sliderView.addSubview(self.cursorView)
         
@@ -179,23 +179,23 @@ import UIKit
     
     // MARK - View
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         // Background view
         if self.sliderOffset != 0 {
             
-            self.backgroundView.frame = CGRectMake(0,
-                                                   0,
-                                                   self.sliderOffset,
-                                                   self.frame.size.height)
+            self.backgroundView.frame = CGRect(x: 0,
+                                                   y: 0,
+                                                   width: self.sliderOffset,
+                                                   height: self.frame.size.height)
             
         }
         else {
-            self.backgroundView.frame = CGRectMake(0,
-                                                   0,
-                                                   self.frame.size.width,
-                                                   self.frame.size.height)
+            self.backgroundView.frame = CGRect(x: 0,
+                                                   y: 0,
+                                                   width: self.frame.size.width,
+                                                   height: self.frame.size.height)
             
         }
         self.backgroundView.backgroundColor = self.mainBackgroundColor
@@ -203,83 +203,83 @@ import UIKit
         // Min label
         if self.showMinMax {
             
-            self.minLabel.frame = CGRectMake(0,
-                                             self.backgroundView.frame.height - 20,
-                                             self.backgroundView.frame.width,
-                                             20)
+            self.minLabel.frame = CGRect(x: 0,
+                                             y: self.backgroundView.frame.height - 20,
+                                             width: self.backgroundView.frame.width,
+                                             height: 20)
             
         }
         else {
             
-            self.minLabel.frame = CGRectMake(0,
-                                             self.backgroundView.frame.height,
-                                             0,
-                                             0)
+            self.minLabel.frame = CGRect(x: 0,
+                                             y: self.backgroundView.frame.height,
+                                             width: 0,
+                                             height: 0)
             
         }
         self.minLabel.text = self.getTextForValueAtIndex(0)
-        self.minLabel.textAlignment = .Center
+        self.minLabel.textAlignment = .center
         self.minLabel.textColor = self.textColor
         
         // Max label
         if self.showMinMax {
             
-            self.maxLabel.frame = CGRectMake(0,
-                                             5,
-                                             self.backgroundView.frame.width,
-                                             20)
+            self.maxLabel.frame = CGRect(x: 0,
+                                             y: 5,
+                                             width: self.backgroundView.frame.width,
+                                             height: 20)
             
         }
         else {
             
-            self.maxLabel.frame = CGRectMake(0,
-                                             5,
-                                             self.backgroundView.frame.width,
-                                             0)
+            self.maxLabel.frame = CGRect(x: 0,
+                                             y: 5,
+                                             width: self.backgroundView.frame.width,
+                                             height: 0)
             
         }
         
         self.maxLabel.text = self.getTextForValueAtIndex(Int(self.numberOfValues - 1))
-        self.maxLabel.textAlignment = .Center
+        self.maxLabel.textAlignment = .center
         self.maxLabel.textColor = self.textColor
         
         // Slider background view
-        self.sliderBackgroundView.frame = CGRectMake(self.backgroundView.frame.width / 2 - self.sliderWidth / 2,
-                                                     self.maxLabel.frame.height + (self.cursorSize / 2),
-                                                     self.sliderWidth,
-                                                     self.backgroundView.frame.height - self.maxLabel.frame.height - self.minLabel.frame.height - self.cursorSize)
+        self.sliderBackgroundView.frame = CGRect(x: self.backgroundView.frame.width / 2 - self.sliderWidth / 2,
+                                                     y: self.maxLabel.frame.height + (self.cursorSize / 2),
+                                                     width: self.sliderWidth,
+                                                     height: self.backgroundView.frame.height - self.maxLabel.frame.height - self.minLabel.frame.height - self.cursorSize)
         self.sliderBackgroundView.backgroundColor = self.sliderUnselectedColor
         
         // Slider view
-        self.sliderView.frame = CGRectMake(0,
-                                           self.sliderWidth / 2,
-                                           self.sliderBackgroundView.frame.width,
-                                           self.sliderBackgroundView.frame.height - self.sliderWidth)
+        self.sliderView.frame = CGRect(x: 0,
+                                           y: self.sliderWidth / 2,
+                                           width: self.sliderBackgroundView.frame.width,
+                                           height: self.sliderBackgroundView.frame.height - self.sliderWidth)
         self.sliderView.backgroundColor = self.sliderColor
         
         // Cursor view
-        self.cursorView.frame = CGRectMake(-(self.cursorSize - self.sliderWidth) / 2,
-                                           self.sliderView.frame.height / 2 - self.cursorSize / 2,
-                                           self.cursorSize,
-                                           self.cursorSize)
+        self.cursorView.frame = CGRect(x: -(self.cursorSize - self.sliderWidth) / 2,
+                                           y: self.sliderView.frame.height / 2 - self.cursorSize / 2,
+                                           width: self.cursorSize,
+                                           height: self.cursorSize)
         self.cursorView.layer.cornerRadius = self.cursorSize / 2
         self.cursorView.backgroundColor = self.cursorColor
         
         // Current position label
         if self.sliderOffset == 0 {
             
-            self.currentPosLabel.frame = CGRectMake(self.cursorView.frame.width,
-                                                    self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
-                                                    (self.frame.width / 2) - self.cursorView.frame.width,
-                                                    self.cursorSize * 1.5)
+            self.currentPosLabel.frame = CGRect(x: self.cursorView.frame.width,
+                                                    y: self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
+                                                    width: (self.frame.width / 2) - self.cursorView.frame.width,
+                                                    height: self.cursorSize * 1.5)
             
         }
         else {
             
-            self.currentPosLabel.frame = CGRectMake(self.cursorView.frame.width,
-                                                    self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
-                                                    self.frame.width - self.backgroundView.frame.width,
-                                                    self.cursorSize * 1.5)
+            self.currentPosLabel.frame = CGRect(x: self.cursorView.frame.width,
+                                                    y: self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
+                                                    width: self.frame.width - self.backgroundView.frame.width,
+                                                    height: self.cursorSize * 1.5)
             
         }
         
@@ -292,19 +292,19 @@ import UIKit
     
     // MARK: - UIControl
     
-    public override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        super.beginTrackingWithTouch(touch, withEvent: event)
+    open override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        super.beginTracking(touch, with: event)
         
         return true
         
     }
     
-    public override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        super.continueTrackingWithTouch(touch, withEvent: event)
+    open override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        super.continueTracking(touch, with: event)
         
         let _ = self.handlePosition
         
-        let point = touch.locationInView(self.sliderView)
+        let point = touch.location(in: self.sliderView)
         
         self.moveHandleToPoint(point)
         
@@ -312,8 +312,8 @@ import UIKit
         
     }
     
-    public override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
-        super.endTrackingWithTouch(touch, withEvent: event)
+    open override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        super.endTracking(touch, with: event)
         
         let endPosition = self.handlePosition
         
@@ -321,14 +321,14 @@ import UIKit
         
     }
     
-    public override func cancelTrackingWithEvent(event: UIEvent?) {
-        super.cancelTrackingWithEvent(event)
+    open override func cancelTracking(with event: UIEvent?) {
+        super.cancelTracking(with: event)
         
     }
     
     // MARK: - Moving handle
     
-    private func moveHandleToPoint(point:CGPoint) {
+    fileprivate func moveHandleToPoint(_ point:CGPoint) {
         
         var newY = point.y - CGFloat(self.cursorView.frame.height / 2)
         
@@ -345,16 +345,16 @@ import UIKit
         
         self.cursorView.frame.origin.y = CGFloat(newY)
         
-        self.currentPosLabel.frame = CGRectMake(self.cursorView.frame.width,
-                                                self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
-                                                self.currentPosLabel.frame.width,
-                                                self.currentPosLabel.frame.height)
+        self.currentPosLabel.frame = CGRect(x: self.cursorView.frame.width,
+                                                y: self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
+                                                width: self.currentPosLabel.frame.width,
+                                                height: self.currentPosLabel.frame.height)
         
         self.currentPosLabel.text = self.getTextForValueAtIndex(Int(self.handlePosition))
         
     }
     
-    private func moveHandleToPosition(position:Double, animated:Bool = false) {
+    fileprivate func moveHandleToPosition(_ position:Double, animated:Bool = false) {
         
         if self.step == 0 {
             
@@ -383,20 +383,20 @@ import UIKit
             
             self.cursorView.frame.origin.y = newY - self.cursorSize / 2
             
-            self.currentPosLabel.frame = CGRectMake(self.cursorView.frame.width,
-                                                    self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
-                                                    self.currentPosLabel.frame.width,
-                                                    self.currentPosLabel.frame.height)
+            self.currentPosLabel.frame = CGRect(x: self.cursorView.frame.width,
+                                                    y: self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
+                                                    width: self.currentPosLabel.frame.width,
+                                                    height: self.currentPosLabel.frame.height)
             
         }
         else {
             
             self.cursorView.frame.origin.y = newY - self.cursorSize / 2
             
-            self.currentPosLabel.frame = CGRectMake(self.cursorView.frame.width,
-                                                    self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
-                                                    self.currentPosLabel.frame.width,
-                                                    self.currentPosLabel.frame.height)
+            self.currentPosLabel.frame = CGRect(x: self.cursorView.frame.width,
+                                                    y: self.cursorView.frame.origin.y - self.cursorSize * 0.5 / 2,
+                                                    width: self.currentPosLabel.frame.width,
+                                                    height: self.currentPosLabel.frame.height)
             
         }
         
@@ -404,13 +404,13 @@ import UIKit
         
     }
     
-    private func getTextForValueAtIndex(index: Int) -> String {
+    fileprivate func getTextForValueAtIndex(_ index: Int) -> String {
         
         // If we have a custom action
         if let lCustomAction = self.getTextForValueAtIndexAction {
             
             // We return the result
-            return lCustomAction(index: index)
+            return lCustomAction(index)
             
         }
         else {
