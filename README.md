@@ -18,12 +18,12 @@ ATSlider is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ATSlider'
+pod 'ATSlider', :git => 'https://github.com/AurelT/ATSlider'
 ```
 
 ## Author
 
-Aurel Tyson, aurel.tis@gmail.com
+Aurel Tyson
 
 ## License
 

@@ -72,9 +72,16 @@ import UIKit
             
             let positionFromMin = -(Double(currentY) - self.minPosition - self.stepheight / 2) / self.stepheight
             
-            let position = Double(Int((positionFromMin * self.step) / self.step)) * self.step
-            
-            return Double(position)
+            if !positionFromMin.isNaN {
+                
+                return Double(Int((positionFromMin * self.step) / self.step)) * self.step
+                
+            }
+            else {
+                
+                return 0
+                
+            }
             
         }
         
